@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    
-    
-      <currency-component v-for="currency in mock_data" :key="currency.id" :currency="currency" />
- 
+      <currency-component v-for="currency in fiatMockData" :key="currency.id" :currency="currency" />
+      <currency-component v-for="currency in cryptoMockData" :key="currency.id" :currency="currency" />
   </div>
 </template>
 
@@ -21,6 +19,16 @@ export default {
   data(){
     return {
       mock_data: mock
+    }
+  },
+  computed:{
+    fiatMockData: function() {
+      let fiat = this.mock_data.filter(item => item.type == 'Фиатная')
+      return fiat
+    },
+    cryptoMockData: function() {
+      let crypto = this.mock_data.filter(item => item.type == 'Криптовалюта')
+      return crypto
     }
   }
 }

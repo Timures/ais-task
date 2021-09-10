@@ -47,3 +47,9 @@ export default {
     }
 }
 </script>
+
+<style lang="sass">
+    .currency
+        display: flex
+
+</style>
