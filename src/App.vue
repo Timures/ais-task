@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+    
+      <currency-component v-for="currency in mock_data" :key="currency.id" :currency="currency" />
+ 
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import mock from './assets/mock.json'
+
+
+import CurrencyComponent from './components/CurrencyComponent.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: { 
+    CurrencyComponent
+  },
+  data(){
+    return {
+      mock_data: mock
+    }
   }
 }
 </script>
