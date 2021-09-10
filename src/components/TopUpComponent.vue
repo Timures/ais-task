@@ -1,7 +1,11 @@
 <template lang="pug">
     .currency-form
-        input.summ(type="number") 
-        .commission {{ currencyTopUp.commission }}
+        .commission Комиссия {{ currencyTopUp.commission }}
+
+        .currency-form__input
+            label(for="summ") Сумма
+            input.summ(type="number", id="summ")
+        
         textarea.comment
         button Ввести
 </template>
