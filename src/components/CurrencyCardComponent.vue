@@ -1,29 +1,31 @@
 <template lang="pug">
-    .currency-card(:class="{active: isTopUp || isWithdraw}")
+    .currency-card(:class="{ active: currency.isTopUpStatus && !currency.isWithdrawStatus || currency.isWithdrawStatus && !currency.isTopUpStatus }")
         .row
             .col
                 .currency-top
                     .name {{ currency.name }}
-                    .balance
+                    .balance {{ currency.balance }}
                 .currency-actions
-                    button(@click='topUpBalance()') Ввод
-                    button(@click='withdrawBalance()') Вывод
+                    button(@click='topUpBalance(currency.id, currency.isTopUpStatus)') Ввод
+                    button(@click='withdrawBalance(currency.id, currency.isWithdrawStatus)') Вывод
         .row
             .col
-                <top-up-component :currencyTopUp=currency v-show="isTopUp" />
-                <withdraw-component :currencyWithdraw=currency v-show="isWithdraw" />
+                <top-up-component v-show="currency.isTopUpStatus" currencyTopUp=currency />
+                <withdraw-component v-show="currency.isWithdrawStatus" currencyWithdraw=currency />
+
 </template>
 
 <script>
-import TopUpComponent from './TopUpComponent.vue';
-import WithdrawComponent from './WithdrawComponent.vue';
+import { mapActions } from 'vuex'
 
+import topUpComponent from './TopUpComponent.vue'
+import withdrawComponent from './WithdrawComponent.vue'
 export default {
     name: 'currency-card-component',
     props: ["currency"],
     components: {
-        TopUpComponent,
-        WithdrawComponent
+       topUpComponent,
+       withdrawComponent
     },
     data(){
         return {
@@ -32,19 +34,29 @@ export default {
         }
     },
     methods: {
-        topUpBalance(){
-            if( this.isWithdraw ) {
-                this.isWithdraw = !this.isWithdraw
-            }
-            this.isTopUp = !this.isTopUp
+        
+        ...mapActions([
+            "CHANGE_CURRENCY_TOPUP_STATUS",
+            "CHANGE_CURRENCY_WITHDRAW_STATUS"
+        ]),
+        
+        topUpBalance(currencyID, currencyStatus){            
             
+            let topUpStatus = {id: currencyID, status: true}
+            if(currencyStatus) {
+                topUpStatus = {id: currencyID, status: false}
+            }
+            
+            this.CHANGE_CURRENCY_TOPUP_STATUS(topUpStatus)
         },
-        withdrawBalance(){
-            if(this.isTopUp) {
-                this.isTopUp = !this.isTopUp            
+        withdrawBalance(currencyID, currencyStatus){       
+
+            let withDrawStatus = {id: currencyID, status: true}
+            if(currencyStatus) {
+                withDrawStatus = {id: currencyID, status: false}
             }
-            this.isWithdraw = !this.isWithdraw
-            
+
+            this.CHANGE_CURRENCY_WITHDRAW_STATUS(withDrawStatus)
         }
     }
 }

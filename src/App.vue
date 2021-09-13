@@ -1,24 +1,16 @@
 <template>
   <div id="app" class="container">
-    <currency-component :mock_data="mock_data" />
+    <currency-component />
   </div>
 </template>
 
 <script>
-import mock from './assets/mock.json'
-
-
 import CurrencyComponent from './components/CurrencyComponent.vue'
 
 export default {
   name: 'App',
   components: { 
     CurrencyComponent
-  },
-  data(){
-    return {
-      mock_data: mock
-    }
   }
 }
 </script>
