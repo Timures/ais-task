@@ -4,14 +4,15 @@
             .col
                 .currency-top
                     .name {{ currency.name }}
-                    .balance {{ currency.balance }}
+                    .balance(v-if="currency.id == 1") {{ currency.balance.toFixed(5) }}
+                    .balance(v-else) {{ currency.balance.toFixed(2) }}
                 .currency-actions
                     button(@click='topUpBalance(currency.id, currency.isTopUpStatus)') Ввод
                     button(@click='withdrawBalance(currency.id, currency.isWithdrawStatus)') Вывод
         .row
             .col
-                <top-up-component v-show="currency.isTopUpStatus" currencyTopUp=currency />
-                <withdraw-component v-show="currency.isWithdrawStatus" currencyWithdraw=currency />
+                <top-up-component v-show="currency.isTopUpStatus" :currencyTopUp="currency" />
+                <withdraw-component v-show="currency.isWithdrawStatus" :currencyWithdraw="currency" />
 
 </template>
 
@@ -20,6 +21,7 @@ import { mapActions } from 'vuex'
 
 import topUpComponent from './TopUpComponent.vue'
 import withdrawComponent from './WithdrawComponent.vue'
+
 export default {
     name: 'currency-card-component',
     props: ["currency"],
@@ -49,6 +51,7 @@ export default {
             
             this.CHANGE_CURRENCY_TOPUP_STATUS(topUpStatus)
         },
+
         withdrawBalance(currencyID, currencyStatus){       
 
             let withDrawStatus = {id: currencyID, status: true}
@@ -61,3 +64,32 @@ export default {
     }
 }
 </script>
+
+<style lang="sass" scoped>
+.currency-card
+    border: 1px solid gray
+    padding: 1em
+    
+    &.active 
+        // grid-column: 1/2
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 547px)
+            grid-column: 1/2
+            // grid-row: 1/auto
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 548px)
+            grid-column: 1/3
+            grid-row: 1/auto
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 768px)
+            grid-column: 1/4
+            grid-row: 1/auto
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 992px)
+            grid-column: 1/4
+            grid-row: 1/auto
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1200px)
+            grid-column: 1/4
+            grid-row: 1/auto
+</style>

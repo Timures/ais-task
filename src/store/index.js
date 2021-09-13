@@ -9,70 +9,70 @@ export const store = new Vuex.Store({
         currencies: [
             {
                "id":1,
-               "name":"BTC",
-               "type":"Криптовалюта",
-               "commission":5,
-               "minimal":0,
+               "name": "BTC",
+               "type": "Криптовалюта",
+               "commission": 0.05,
+               "minimal": 0.001,
                "isTopUpStatus": false,
                "isWithdrawStatus": false,
                "balance": 0.01
             },
             {
                "id":2,
-               "name":"USD",
-               "type":"Фиатная",
-               "commission":5,
-               "minimal":100,
+               "name": "USD",
+               "type": "Фиатная",
+               "commission": 0.05,
+               "minimal": 100,
                "isTopUpStatus": false,
                "isWithdrawStatus": false,
                "balance": 100
             },
             {
                "id":3,
-               "name":"DOGE",
-               "type":"Криптовалюта",
-               "commission":0.5,
-               "minimal":5,
+               "name": "DOGE",
+               "type": "Криптовалюта",
+               "commission": 0.5,
+               "minimal": 5,
                "isTopUpStatus": false,
                "isWithdrawStatus": false,
                "balance": 15
             },
             {
                "id":4,
-               "name":"LTC",
-               "type":"Криптовалюта",
-               "commission":0.5,
-               "minimal":1,
+               "name": "LTC",
+               "type": "Криптовалюта",
+               "commission": 0.5,
+               "minimal": 1,
                "isTopUpStatus": false,
                "isWithdrawStatus": false,
                "balance": 25
             },
             {
                "id":5,
-               "name":"SHIB",
-               "type":"Криптовалюта",
-               "commission":10,
-               "minimal":500,
+               "name": "SHIB",
+               "type": "Криптовалюта",
+               "commission": 10,
+               "minimal": 500,
                "isTopUpStatus": false,
                "isWithdrawStatus": false,
                "balance": 350
             },
             {
                "id":6,
-               "name":"RUR",
-               "type":"Фиатная",
-               "commission":0,
-               "minimal":10000,
+               "name": "RUR",
+               "type": "Фиатная",
+               "commission": 0,
+               "minimal": 10000,
                "isTopUpStatus": false,
                "isWithdrawStatus": false,
                "balance": 5000
             },
             {
                "id":7,
-               "name":"BNB",
-               "type":"Криптовалюта",
-               "commission":0.01,
-               "minimal":0.15,
+               "name": "BNB",
+               "type": "Криптовалюта",
+               "commission": 0.01,
+               "minimal": 0.15,
                "isTopUpStatus": false,
                "isWithdrawStatus": false,
                "balance": 120
@@ -102,9 +102,17 @@ export const store = new Vuex.Store({
             })
         },
         // balance
-        SET_CURRENCY_BALANCE: (state, payload) => {
+        SET_CURRENCY_BALANCE_TOPUP: (state, payload) => {
             let current_currency = state.currencies.filter(el => el.id == payload.id)
-            current_currency.balance = payload.balance
+            
+            current_currency[0].balance = current_currency[0].balance + payload.balance
+            console.log('balance ste', current_currency.balance, payload.balance)
+        },
+        SET_CURRENCY_BALANCE_WITHDRAW: (state, payload) => {
+            let current_currency = state.currencies.filter(el => el.id == payload.id)
+            
+            current_currency[0].balance = current_currency[0].balance - payload.balance
+            console.log('balance wd', current_currency.balance, payload.balance)
         },
     },
 
@@ -120,8 +128,13 @@ export const store = new Vuex.Store({
             context.commit('SET_CURRENCY_WITHDRAW_STATUS', payload)
         },
         // balance
-        CHANGE_CURRENCY_BALANCE: (context, payload) => {
-            context.commit('SET_CURRENCY_BALANCE', payload)
+        CHANGE_CURRENCY_BALANCE_TOPUP: (context, payload) => {
+            console.log('balance act', payload.balance)
+            context.commit('SET_CURRENCY_BALANCE_TOPUP', payload)
+        },
+        CHANGE_CURRENCY_BALANCE_WITHDRAW: (context, payload) => {
+            console.log('balance act', payload.balance)
+            context.commit('SET_CURRENCY_BALANCE_WITHDRAW', payload)
         },
     },
 

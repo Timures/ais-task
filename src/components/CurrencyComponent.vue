@@ -30,31 +30,7 @@ export default {
     .currency-list
         display: grid
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
-    .currency-card
-        border: 1px solid gray
-        padding: 1em
-        &.active 
-            // grid-column: 1/2
-            /* Extra small devices (phones, 600px and down) */
-            @media only screen and (max-width: 547px)
-                grid-column: 1/2
-                // grid-row: 1/auto
-            /* Small devices (portrait tablets and large phones, 600px and up) */
-            @media only screen and (min-width: 548px)
-                grid-column: 1/3
-                grid-row: 1/auto
-            /* Medium devices (landscape tablets, 768px and up) */
-            @media only screen and (min-width: 768px)
-                grid-column: 1/4
-                grid-row: 1/auto
-            /* Large devices (laptops/desktops, 992px and up) */
-            @media only screen and (min-width: 992px)
-                grid-column: 1/4
-                grid-row: 1/auto
-            /* Extra large devices (large laptops and desktops, 1200px and up) */
-            @media only screen and (min-width: 1200px)
-                grid-column: 1/4
-                grid-row: 1/auto
+        grid-gap: 1em
     .currency
         display: flex
         flex-direction: column
