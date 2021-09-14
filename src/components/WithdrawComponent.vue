@@ -12,7 +12,7 @@
                     textarea.comment(placeholder="Комментарий", v-model="comment")
 
             .content__right
-                <withdraw-commission-info :currencyWithdraw="currencyWithdraw" :withdrawSumm="withdrawSumm" />
+                <withdraw-commission-info @clear-inputs="clearInputsAfterWithdraw" :currencyWithdraw="currencyWithdraw" :currencySumm="withdrawSumm" />
 </template>
 
 <script>
@@ -30,6 +30,13 @@ export default {
     },
     components:{
         withdrawCommissionInfo
+    },
+    methods: {
+        clearInputsAfterWithdraw(){
+            this.withdrawSumm = null,
+            this.withdrawAdress = '',
+            this.comment = ''
+        }
     }
 }
 </script>
