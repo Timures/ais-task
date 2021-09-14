@@ -9,6 +9,12 @@ import CurrencyComponent from './components/CurrencyComponent.vue'
 
 export default {
   name: 'App',
+  metaInfo: {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: 'Тестовое задание',
+      // all titles will be injected into this template
+      titleTemplate: '%s | Timures'
+  },
   components: { 
     CurrencyComponent
   }

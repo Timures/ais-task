@@ -10,8 +10,8 @@
 
         .info(v-if="currencySumm >= currencyTopUp.minimal")
             .result(v-if="currencyTopUp.id == 1") 
-                div Сумма комиссии: {{ parseFloat(Number(currencySumm) * Number(currencyTopUp.commission)).toFixed(5) }} {{ currencyTopUp.name }} 
-                div Будет зачислено: {{ parseFloat( Number(currencySumm) - parseFloat(Number(currencySumm) * Number(currencyTopUp.commission)).toFixed(5) )  }} {{ currencyTopUp.name }}
+                div Сумма комиссии: {{ getCommissionSumm(currencyTopUp.id) }} {{ currencyTopUp.name }} 
+                div Будет зачислено: {{ getTopUpSumm(currencyTopUp.id)  }} {{ currencyTopUp.name }}
 
             .result(v-if="currencyTopUp.id == 2 || currencyTopUp.id == 6")
                 div Сумма комиссии: {{ parseFloat(Number(currencySumm) * Number(currencyTopUp.commission)) }} {{ currencyTopUp.name }}
@@ -48,29 +48,7 @@ export default {
         topUpAction(currency, curSumm){
             
             if(curSumm >= currency.minimal) {
-                let result
-
-                switch (currency.id) {
-                    case 1: // BTC 0.001 - (0.001 * 0.05) = 0.00095 (0.001 - 0.00005) = 0.00095
-                        result = parseFloat( Number(curSumm) - ( Number(curSumm) * Number(currency.commission) ) )                        
-                        break;
-                    case 2: // USD 100 - (100 * 0.05) = 99.95
-                        result = parseFloat( Number(curSumm) - ( Number(curSumm) * Number(currency.commission) ) )                   
-                        break;
-                    case 3:
-                    case 4: // LTc
-                    case 5: // SHIB
-                        result = parseFloat(Number((curSumm - currency.commission).toFixed(2)))
-                        // console.log(result, curSumm, (curSumm - currency.commission).toFixed(2))
-                        break;
-                    case 7: // BNB
-                        result = parseFloat(Number((curSumm - currency.commission).toFixed(5)))
-                        break;
-                
-                    default:
-                        result = parseFloat(Number((curSumm - currency.commission).toFixed(2)))
-                        break;
-                }
+                let result = this.getTopUpSumm(currency.id)
                 
                 let balanceToChangeTopUp = {id: currency.id, balance: result}
 
@@ -80,6 +58,58 @@ export default {
             }
             
         },
+
+        getCommissionSumm(currencyID){
+            let result_commission_summ = null
+            switch (currencyID) {
+                case 1:
+                    // BTC 0.05 
+                    result_commission_summ = Number(this.currencySumm) * Number(this.currencyTopUp.commission)
+                    
+                    break;
+                case 2:
+                    // USD 0.05 100 * 0.05
+                    result_commission_summ = Number(this.currencySumm) * Number(this.currencyTopUp.commission)
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 7:
+                    result_commission_summ = Number(this.currencyTopUp.commission)
+                    break;
+                default:
+                    result_commission_summ = 0
+                    break;
+            }
+
+            return result_commission_summ
+        },
+
+        getTopUpSumm(currencyID){
+            let result_withdraw_summ = null
+            switch (currencyID) {
+                case 1:
+                    // BTC 0.05 
+                    result_withdraw_summ = Number(this.currencySumm) - (Number(this.currencySumm) * Number(this.currencyTopUp.commission))                    
+                    break;
+                case 2:
+                case 6:
+                    // USD 0.05 100 * 0.05
+                    result_withdraw_summ = Number(this.currencySumm) - (Number(this.currencySumm) * Number(this.currencyTopUp.commission))
+                    // console.log('result_withdraw_summ ', result_withdraw_summ)
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 7:
+                    result_withdraw_summ = Number(this.currencySumm) - Number(this.currencyTopUp.commission)
+                    break;
+                default:
+                    break;
+            }
+
+            return result_withdraw_summ
+        }
 
 
     }
