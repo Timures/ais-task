@@ -23,11 +23,8 @@ body
   background-color: #F8F6F6
   color: #283450
 #app
-  
-  // text-align: center
-  // color: #2c3e50
   margin-top: 60px
-  // background-color: #c4c4c4
+
 
 .container
   padding: 0.5em
