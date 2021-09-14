@@ -125,11 +125,7 @@ export default {
         cursor: not-allowed
         &.active
             cursor: pointer  
-    @media only screen and (max-width: 547px)
-        padding-left: 0
-        margin: 1.5em auto 0 auto
-        grid-column: 1/4
-        width: 100%
+    
     
     .currency-desc
         width: auto
@@ -141,6 +137,7 @@ export default {
         align-items: flex-start
         font-size: 0.9em
         line-height: 1.2em
+        border-radius: 0.5em
         .commission-info
             display: flex
         .commission

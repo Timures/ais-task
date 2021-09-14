@@ -48,8 +48,10 @@ export default {
         flex-direction: column
         width: 100%
     &-content
+        padding: 0 1em
         display: grid
         grid-template-columns: 1fr
+        grid-gap: 1em
         @media only screen and (max-width: 547px)
             grid-template-columns: 1fr
         @media only screen and (min-width: 548px)
@@ -76,6 +78,7 @@ export default {
                 border-bottom: 1px solid rgba(34, 60, 80, 50%)
                 background-color: transparent
                 padding-left: 0.5em
+                border-radius: 0.1em
                 &.error
                     border-bottom-color: #502225
                 &:focus, &:focus-visible
@@ -85,18 +88,20 @@ export default {
                 width: 100%
                 min-height: 5em
                 padding: 0.5em
+                border-radius: 0.25em
                 &:focus, &:focus-visible
                     outline: none
                     outline-width: 0
         
         .content__right
-            padding-left: 1em
+            
             @media only screen and (max-width: 547px)
                 grid-column: 1/2
             @media only screen and (min-width: 548px)
                 grid-column: 2/4
             @media only screen and (min-width: 768px)
                 grid-column: 3/4
+       
 
 
     

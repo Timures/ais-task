@@ -18,7 +18,7 @@
         .danger(v-if="currencySumm != null && currencyWithdraw.balance < currencySumm")
             .message Указанная сумма больше чем имеется на балансе
 
-        button( @click='withdrawAction(currencyWithdraw, currencySumm)' :class="{active : getWithdrawSumm(currencyWithdraw.id) <= currencyWithdraw.balance }" ) Вывести
+        button( @click='withdrawAction(currencyWithdraw, currencySumm)' :class="{active : getWithdrawSumm(currencyWithdraw.id) <= currencyWithdraw.balance && currencySumm != null }" ) Вывести
 
 </template>
 

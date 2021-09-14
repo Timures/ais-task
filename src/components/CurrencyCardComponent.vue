@@ -70,12 +70,15 @@ export default {
 .currency-card
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2)
     border-radius: 0.5em
-    padding: 1em
+    padding: 1em 0
     transition: 0.15s all ease-in
     &:hover, &:focus
         transform: translate3d(0,-1px, 2px)
         box-shadow: 0px 5px 10px 2px rgba(80, 34, 37, 0.3)
     &.active 
+        .currency-info
+            box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.3) inset
+            padding: 0 1em 1em 1em
         // grid-column: 1/2
         /* Extra small devices (phones, 600px and down) */
         @media only screen and (max-width: 547px)
@@ -97,16 +100,18 @@ export default {
         @media only screen and (min-width: 1200px)
             grid-column: 1/4
             grid-row: 1/auto
+
 .currency-info
     display: flex
     justify-content: space-between
+    padding: 0 1em
     &__left
         display: flex
         flex-direction: column
         align-items: start
         .name
             font-size: 1.2em
-            font-weight: 500
+            font-weight: 600
             margin-bottom: 0.5em
     &__right
         display: flex
