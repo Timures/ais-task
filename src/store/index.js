@@ -85,14 +85,14 @@ export const store = new Vuex.Store({
              // clear all statuses
             let current_currency = state.currencies.filter(el => el.id == payload.id)
             
-            // console.log('current ', current_currency[0])
+            
             current_currency[0].isTopUpStatus = payload.status
         },
         SET_CURRENCY_WITHDRAW_STATUS: (state, payload) => {
             // clear all statuses
            let current_currency = state.currencies.filter(el => el.id == payload.id)
            
-           // console.log('current ', current_currency[0])
+           
            current_currency[0].isWithdrawStatus = payload.status
        },
         SET_CURENCIES_STATUS_CLEAR: (state) =>{
@@ -106,34 +106,34 @@ export const store = new Vuex.Store({
             let current_currency = state.currencies.filter(el => el.id == payload.id)
             
             current_currency[0].balance = current_currency[0].balance + payload.balance
-            console.log('balance ste', current_currency.balance, payload.balance)
+            
         },
         SET_CURRENCY_BALANCE_WITHDRAW: (state, payload) => {
             let current_currency = state.currencies.filter(el => el.id == payload.id)
             
             current_currency[0].balance = current_currency[0].balance - payload.balance
-            console.log('balance wd', current_currency.balance, payload.balance)
+            
         },
     },
 
     actions: {
         CHANGE_CURRENCY_TOPUP_STATUS: (context, payload) => {
-            // console.log('actions ', payload)
+            
             context.commit('SET_CURENCIES_STATUS_CLEAR')
             context.commit('SET_CURRENCY_TOPUP_STATUS', payload)
         },
         CHANGE_CURRENCY_WITHDRAW_STATUS: (context, payload) => {
-            // console.log('actions ', payload)
+            
             context.commit('SET_CURENCIES_STATUS_CLEAR')
             context.commit('SET_CURRENCY_WITHDRAW_STATUS', payload)
         },
         // balance
         CHANGE_CURRENCY_BALANCE_TOPUP: (context, payload) => {
-            console.log('balance act', payload.balance)
+            
             context.commit('SET_CURRENCY_BALANCE_TOPUP', payload)
         },
         CHANGE_CURRENCY_BALANCE_WITHDRAW: (context, payload) => {
-            console.log('balance act', payload.balance)
+            
             context.commit('SET_CURRENCY_BALANCE_WITHDRAW', payload)
         },
     },

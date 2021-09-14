@@ -10,16 +10,13 @@
 
         .info(v-if="currencySumm >= currencyTopUp.minimal")
             .result(v-if="currencyTopUp.id == 1") 
-                div Сумма комиссии: {{ getCommissionSumm(currencyTopUp.id) }} {{ currencyTopUp.name }} 
-                div Будет зачислено: {{ getTopUpSumm(currencyTopUp.id)  }} {{ currencyTopUp.name }}
+                div Сумма комиссии: {{ getCommissionSumm(currencyTopUp.id).toFixed(5) }} {{ currencyTopUp.name }} 
+                div Будет зачислено: {{ getTopUpSumm(currencyTopUp.id).toFixed(5)  }} {{ currencyTopUp.name }}
+            .result(v-else) 
+                div Сумма комиссии: {{ getCommissionSumm(currencyTopUp.id).toFixed(2) }} {{ currencyTopUp.name }} 
+                div Будет зачислено: {{ getTopUpSumm(currencyTopUp.id).toFixed(2)  }} {{ currencyTopUp.name }}
 
-            .result(v-if="currencyTopUp.id == 2 || currencyTopUp.id == 6")
-                div Сумма комиссии: {{ parseFloat(Number(currencySumm) * Number(currencyTopUp.commission)) }} {{ currencyTopUp.name }}
-                div Будет зачислено: {{ parseFloat( Number(currencySumm) - parseFloat(Number(currencySumm) * Number(currencyTopUp.commission)) ) }} {{ currencyTopUp.name }}
-
-            .result(v-if="currencyTopUp.id == 3 || currencyTopUp.id == 4 || currencyTopUp.id == 5")
-                div Будет зачислено: {{ parseFloat(Number((currencySumm - currencyTopUp.commission).toFixed(2))) }} {{ currencyTopUp.name }}
-
+           
         .divider
 
         .danger(v-if="currencySumm != null && currencyTopUp.minimal > currencySumm")
@@ -35,12 +32,6 @@ import { mapActions } from 'vuex'
 export default {
     name: 'top-up-commission-info',
     props: ["currencyTopUp", "currencySumm"],
-    data(){
-        return {
-            // currencySumm: null,
-            comment: ''
-        }
-    },
     methods:{
 
         ...mapActions([ "CHANGE_CURRENCY_BALANCE_TOPUP" ]),
@@ -96,7 +87,6 @@ export default {
                 case 6:
                     // USD 0.05 100 * 0.05
                     result_withdraw_summ = Number(this.currencySumm) - (Number(this.currencySumm) * Number(this.currencyTopUp.commission))
-                    // console.log('result_withdraw_summ ', result_withdraw_summ)
                     break;
                 case 3:
                 case 4:

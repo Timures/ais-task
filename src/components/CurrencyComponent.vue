@@ -19,7 +19,6 @@ export default {
     computed: {
         currentCurrencies(){
             
-            // console.log('tsss', this.$store.getters['currency/GET_CURRENCIES'])
             return this.$store.getters.GET_CURRENCIES
         }
     }

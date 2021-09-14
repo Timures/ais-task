@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         clearInputsAfterTopUp(){
-            console.log('emit')
+            
             this.inputSumm = null
             this.comment = ''
         }
