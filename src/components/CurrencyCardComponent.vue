@@ -1,15 +1,16 @@
 <template lang="pug">
     .currency-card(:class="{ active: currency.isTopUpStatus && !currency.isWithdrawStatus || currency.isWithdrawStatus && !currency.isTopUpStatus }")
-        .row
-            .col
-                .currency-top
-                    .name {{ currency.name }}
-                    .balance(v-if="currency.id == 1") {{ currency.balance.toFixed(5) }}
-                    .balance(v-else) {{ currency.balance.toFixed(2) }}
+        .currency-info
+            .currency-info__left
+                .name {{ currency.name }}
+                    
                 .currency-actions
-                    button(@click='topUpBalance(currency.id, currency.isTopUpStatus)') Ввод
-                    button(@click='withdrawBalance(currency.id, currency.isWithdrawStatus)') Вывод
-        .row
+                    button(@click='topUpBalance(currency.id, currency.isTopUpStatus)' :class="{active: currency.isTopUpStatus}") Ввод
+                    button(@click='withdrawBalance(currency.id, currency.isWithdrawStatus)'  :class="{active: currency.isWithdrawStatus}") Вывод
+            .currency-info__right
+                .balance(v-if="currency.id == 1") {{ currency.balance.toFixed(5) }}
+                .balance(v-else) {{ currency.balance.toFixed(2) }}
+        .currency-card-form
             .col
                 <top-up-component v-show="currency.isTopUpStatus" :currencyTopUp="currency" />
                 <withdraw-component v-show="currency.isWithdrawStatus" :currencyWithdraw="currency" />
@@ -67,9 +68,13 @@ export default {
 
 <style lang="sass" scoped>
 .currency-card
-    border: 1px solid gray
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2)
+    border-radius: 0.5em
     padding: 1em
-    
+    transition: 0.15s all ease-in
+    &:hover, &:focus
+        transform: translate3d(0,-1px, 2px)
+        box-shadow: 0px 5px 10px 2px rgba(80, 34, 37, 0.3)
     &.active 
         // grid-column: 1/2
         /* Extra small devices (phones, 600px and down) */
@@ -92,4 +97,30 @@ export default {
         @media only screen and (min-width: 1200px)
             grid-column: 1/4
             grid-row: 1/auto
+.currency-info
+    display: flex
+    justify-content: space-between
+    &__left
+        display: flex
+        flex-direction: column
+        align-items: start
+        .name
+            font-size: 1.2em
+            font-weight: 500
+            margin-bottom: 0.5em
+    &__right
+        display: flex
+        justify-content: flex-end
+        align-items: flex-start
+        
+        .balance
+            font-size: 1.7em
+            font-weight: 500
+
+.currency-actions
+    display: flex
+    justify-content: flex-start
+    button
+        &:first-child
+            margin-right: 0.5em
 </style>

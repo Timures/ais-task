@@ -2,6 +2,8 @@
     .currency-form
         .currency-form__calc
             .commission Комиссия {{ currencyWithdraw.commission }}
+            .result(v-if="currencyWithdraw.id == 1 || currencyWithdraw.id == 7") Расчет {{ parseFloat(Number(withdrawSumm) * currencyWithdraw.commission.toFixed(5)).toFixed(3) }}
+            .result(v-else) Расчет {{ parseFloat(Number(withdrawSumm) * currencyWithdraw.commission.toFixed(5)).toFixed(2) }}
 
             .currency-form__input
                 label(for="summ") Сумма
@@ -68,37 +70,3 @@ export default {
     }
 }
 </script>
-
-<style lang="sass">
-.currency-form
-    margin-top: 1em
-    border-top: 1px solid red
-    display: flex
-    flex-direction: column
-    
-    button
-        margin-top: 0.5em
-        &.active, &:active
-           background-color: lightgreen 
-
-.currency-form__calc
-    display: flex
-    flex-direction: column
-    justify-content: start
-.currency-form__input
-    margin-bottom: 1em
-    display: flex
-    width: 100%
-    justify-content: start
-    label
-        margin-right: 0.5em
-    input
-        width: 100%
-
-.commission
-    margin-left: 1em
-    margin-bottom: 0.5em
-    display: flex
-    justify-content: end
-    font-size: 0.8em
-</style>
