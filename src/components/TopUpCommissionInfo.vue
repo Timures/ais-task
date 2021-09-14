@@ -33,7 +33,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-    name: 'currency-info-component',
+    name: 'top-up-commission-info',
     props: ["currencyTopUp", "currencySumm"],
     data(){
         return {
@@ -88,20 +88,18 @@ export default {
 
 <style lang="sass">
 .content__right
-    padding-left: 1em
-    grid-column: 3/4
     
     button
-        width: 7em
+        width: 80%
+        margin: 1em auto 0 auto
         cursor: not-allowed
         &.active
             cursor: pointer  
     @media only screen and (max-width: 547px)
         padding-left: 0
-        margin-top: 1.5em
+        margin: 1.5em auto 0 auto
         grid-column: 1/4
-        button
-            width: 100%
+        width: 100%
     
     .currency-desc
         width: auto

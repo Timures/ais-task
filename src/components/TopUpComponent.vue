@@ -8,14 +8,14 @@
                     textarea.comment(placeholder="Комментарий", v-model="comment")
 
             .content__right
-                <currency-info-component @clear-inputs="clearInputsAfterTopUp" :currencyTopUp="currencyTopUp" :currencySumm="inputSumm" />
+                <top-up-commission-info @clear-inputs="clearInputsAfterTopUp" :currencyTopUp="currencyTopUp" :currencySumm="inputSumm" />
 
                     
 </template>
 
 <script>
 
-import currencyInfoComponent from './currencyInfoComponent.vue'
+import topUpCommissionInfo from './TopUpCommissionInfo.vue'
 
 export default {
     name: 'top-up-component',
@@ -27,7 +27,7 @@ export default {
         }
     },
     components: {
-        currencyInfoComponent
+        topUpCommissionInfo
     },
     methods: {
         clearInputsAfterTopUp(){
@@ -49,13 +49,26 @@ export default {
         width: 100%
     &-content
         display: grid
-        grid-template-columns: repeat(auto-fill)
+        grid-template-columns: 1fr
+        @media only screen and (max-width: 547px)
+            grid-template-columns: 1fr
+        @media only screen and (min-width: 548px)
+            grid-template-columns: 1fr 1fr
+        @media only screen and (min-width: 768px)
+            grid-template-columns: 1fr 1fr 1fr
+        
         .content__left
-            grid-column: 1/3
-            @media only screen and (max-width: 547px)
-                grid-column: 1/4
             padding-top: 1em
+            grid-column: 1/2
+            @media only screen and (max-width: 547px)
+                grid-column: 1/2
+            @media only screen and (min-width: 548px)
+                grid-column: 1/2
+            @media only screen and (min-width: 768px)
+                grid-column: 1/3
+            
             input
+                width: 100%
                 margin-bottom: 1em
                 border-top: none
                 border-left: none
@@ -76,6 +89,14 @@ export default {
                     outline: none
                     outline-width: 0
         
+        .content__right
+            padding-left: 1em
+            @media only screen and (max-width: 547px)
+                grid-column: 1/2
+            @media only screen and (min-width: 548px)
+                grid-column: 2/4
+            @media only screen and (min-width: 768px)
+                grid-column: 3/4
 
 
     
