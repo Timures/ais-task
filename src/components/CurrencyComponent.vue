@@ -34,6 +34,8 @@ export default {
     .currency
         display: flex
         flex-direction: column
+    
+            
         
 
 </style>

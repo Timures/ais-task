@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="container">
+    <h1>Test task</h1>
     <currency-component />
   </div>
 </template>
@@ -9,12 +10,6 @@ import CurrencyComponent from './components/CurrencyComponent.vue'
 
 export default {
   name: 'App',
-  metaInfo: {
-      // if no subcomponents specify a metaInfo.title, this title will be used
-      title: 'Тестовое задание',
-      // all titles will be injected into this template
-      titleTemplate: '%s | Timures'
-  },
   components: { 
     CurrencyComponent
   }
@@ -39,6 +34,8 @@ body
   margin: 0 auto
   max-width: 60em
   min-width: 20em
+  h1
+    text-align: center
 button
   border: 1px solid lighten(#222b50, 10%)
   border-radius: 0.2em

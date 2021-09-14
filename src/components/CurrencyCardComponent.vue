@@ -72,6 +72,10 @@ export default {
     border-radius: 0.5em
     padding: 1em 0
     transition: 0.15s all ease-in
+    &:nth-child(odd)
+        background-color: rgba(213, 229, 37, 0.1)
+    &:nth-child(even)
+        background-color: rgba(220, 229, 213, 0.1)
     &:hover, &:focus
         transform: translate3d(0,-1px, 2px)
         box-shadow: 0px 5px 10px 2px rgba(80, 34, 37, 0.3)
